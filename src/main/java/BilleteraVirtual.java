@@ -46,7 +46,7 @@ public class BilleteraVirtual {
     }
     private static ArrayList<Integer> usuariosRegistrados = new ArrayList<>();
 
-    // Método para generar un número de billetera único
+    // metodo para generar un numero de billetera unico
     public static int generarNumeroBilletera() {
         int numeroBilletera;
 
