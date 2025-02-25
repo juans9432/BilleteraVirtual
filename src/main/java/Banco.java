@@ -29,4 +29,76 @@ public class Banco {
     public void setBilleteras(ArrayList<BilleteraVirtual> billeteras) {
         this.billeteras = billeteras;
     }
+
+    /**
+     * metodo para agregar un usuario
+     * @param usuario
+     * @throws Exception
+     */
+    public void agregar(Usuario usuario) throws Exception{
+
+        Usuario usuarioBuscado = obtener(usuario.getId());
+
+        // Si el estudiante ya existe, lanzar una excepción
+        if(usuarioBuscado!=null){
+            throw new Exception("Ya existe un usuario con el mismo ID");
+        }else{
+            usuarios.add(usuario);
+        }
+    }
+
+    /**
+     * metodo para obtener el usuario
+     * @param id
+     * @return
+     */
+    public Usuario obtener(String id){
+
+        // Buscar el usuario con el ID dado
+        return usuarios
+                .stream()
+                .filter(e -> e.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+
+    }
+
+    /**
+     * metodo para eliminar un usuario
+     * @param id
+     * @throws Exception
+     */
+    public void eliminar(String id) throws Exception{
+        Usuario usuarioBuscado = obtener(id);
+
+        // Si el usuario no existe, lanzar una excepción
+        if(usuarioBuscado==null){
+            throw new Exception("No existe un usuario con el ID dado");
+        }else{
+            usuarios.remove(usuarioBuscado);
+        }
+    }
+
+    /**
+     *
+     * @param nuevoEstudiante
+     * @throws Exception
+     */
+    public void actualizar(Usuario nuevoUsuario) throws Exception{
+        Usuario usuarioBuscado = obtener(nuevoUsuario.getId());
+
+        // Si el usuario no existe, lanzar una excepción
+        if(usuarioBuscado!=null){
+            usuarioBuscado.setId(nuevoUsuario.getId());
+            usuarioBuscado.setNombre(nuevoUsuario.getNombre());
+            usuarioBuscado.setDireccion(nuevoUsuario.getDireccion());
+            usuarioBuscado.setEmail(nuevoUsuario.getEmail());
+            usuarioBuscado.setPassword(nuevoUsuario.getPassword());
+            usuarioBuscado.setEstado(nuevoUsuario.isEstado());
+
+        }else{
+            throw new Exception("No existe un usuario con el ID dado");
+        }
+    }
+
 }
