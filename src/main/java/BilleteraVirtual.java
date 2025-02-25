@@ -44,4 +44,20 @@ public class BilleteraVirtual {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    /**
+     * metodo para consultar el saldo
+     * @return
+     */
+    public float consultarSaldo(){
+        return saldo;
+    }
+
+    /**
+     * metodo para consultar las transacciones
+     * @return
+     */
+    public ArrayList<Transaccion> consultarTransacciones(){
+        return transacciones;
+    }
 }

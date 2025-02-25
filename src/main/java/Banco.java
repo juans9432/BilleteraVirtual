@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Banco {
+    String nombre;
     ArrayList<Usuario> usuarios;
     ArrayList<BilleteraVirtual> billeteras;
 
@@ -9,9 +10,11 @@ public class Banco {
      * @param usuarios
      * @param billeteras
      */
-    public Banco(ArrayList<Usuario> usuarios, ArrayList<BilleteraVirtual> billeteras) {
-        this.usuarios = usuarios;
-        this.billeteras = billeteras;
+    public Banco(String nombre, ArrayList<Usuario> usuarios,
+                 ArrayList<BilleteraVirtual> billeteras) {
+        this.nombre=nombre;
+        this.usuarios = new ArrayList<>();
+        this.billeteras = new ArrayList<>();
     }
 
     public ArrayList<Usuario> getUsuarios() {
@@ -81,7 +84,7 @@ public class Banco {
 
     /**
      *
-     * @param nuevoEstudiante
+     * @param nuevoUsuario
      * @throws Exception
      */
     public void actualizar(Usuario nuevoUsuario) throws Exception{
@@ -94,7 +97,7 @@ public class Banco {
             usuarioBuscado.setDireccion(nuevoUsuario.getDireccion());
             usuarioBuscado.setEmail(nuevoUsuario.getEmail());
             usuarioBuscado.setPassword(nuevoUsuario.getPassword());
-            usuarioBuscado.setEstado(nuevoUsuario.isEstado());
+            usuarioBuscado.setEstado(nuevoUsuario.Estado());
 
         }else{
             throw new Exception("No existe un usuario con el ID dado");
