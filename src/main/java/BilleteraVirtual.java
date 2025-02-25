@@ -67,8 +67,7 @@ public class BilleteraVirtual {
                 return numeroBilletera;
             }
         }
-        return -1; // Si no se encuentra un número único después de 1000 intentos
-    }
+        return -1;
 
     // Método para recargar la billetera virtual
     public static boolean recargarBilletera(int numeroBilletera, double monto) {
