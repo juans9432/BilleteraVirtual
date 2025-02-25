@@ -44,74 +44,20 @@ public class BilleteraVirtual {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    private static ArrayList<Integer> usuariosRegistrados = new ArrayList<>();
 
-    // Método para generar un número de billetera único
-    public static int generarNumeroBilletera() {
-        int numeroBilletera;
-
-        for (int i = 0; i < 1000; i++) {
-            numeroBilletera = (int) (Math.random() * 1000000000); // Genera un número de 9 dígitos
-            boolean existe = false;
-
-            for (int usuario : usuariosRegistrados) {
-                if (usuario == numeroBilletera) {
-                    existe = true;
-                    break;
-                }
-            }
-
-            if (!existe) {
-                usuariosRegistrados.add(numeroBilletera);
-                saldo.add(0.0);
-                return numeroBilletera;
-            }
-        }
-        return -1;
-
-    // Método para recargar la billetera virtual
-    public static boolean recargarBilletera(int numeroBilletera, double monto) {
-        if (monto > 0) {
-            for (int i = 0; i < usuariosRegistrados.size(); i++) {
-                if (usuariosRegistrados.get(i) == numeroBilletera) {
-                    saldo.set(i, saldo.get(i) + monto);
-                    return true;
-                }
-            }
-        }
-        return false;
+    /**
+     * metodo para consultar el saldo
+     * @return
+     */
+    public float consultarSaldo(){
+        return saldo;
     }
 
-    public static void main(String[] args) {
-        // Agregamos usuarios registrados de ejemplo
-        usuariosRegistrados.add(123456789);
-        usuariosRegistrados.add(987654321);
-        usuariosRegistrados.add(456123789);
-        saldos.add(50.0);
-        saldos.add(75.0);
-        saldos.add(100.0);
-
-        // Generamos una nueva billetera
-        int nuevaBilletera = generarNumeroBilletera();
-
-        if (nuevaBilletera != -1) {
-            System.out.println("Número de billetera generado: " + nuevaBilletera);
-        } else {
-            System.out.println("No se pudo generar un número de billetera único.");
-        }
-
-        // Probamos recargar la billetera
-        boolean recargaExitosa = recargarBilletera(nuevaBilletera, 200.0);
-
-        if (recargaExitosa) {
-            int index = usuariosRegistrados.indexOf(nuevaBilletera);
-            System.out.println("Recarga exitosa. Nuevo saldo: " + saldo.get(index));
-        } else {
-            System.out.println("Error en la recarga.");
-        }
+    /**
+     * metodo para consultar las transacciones
+     * @return
+     */
+    public ArrayList<Transaccion> consultarTransacciones(){
+        return transacciones;
     }
-
 }
-
-
-
