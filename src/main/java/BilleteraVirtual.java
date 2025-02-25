@@ -44,4 +44,38 @@ public class BilleteraVirtual {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    private static ArrayList<Integer> usuariosRegistrados = new ArrayList<>();
+
+    // Método para generar un número de billetera único
+    public static int generarNumeroBilletera() {
+        int numeroBilletera;
+
+        for (int i = 0; i < 1000; i++) {
+            numeroBilletera = (int) (Math.random() * 1000000000); // genera un numero de 9 digitos
+            if (!usuariosRegistrados.contains(numeroBilletera)) {
+                usuariosRegistrados.add(numeroBilletera); //
+                return numeroBilletera; //
+            }
+        }
+
+        return -1; // Si no se encuentra un número único después de 1000 intentos
+    }
+
+    public static void main(String[] args) {
+        usuariosRegistrados.add(123456789);
+        usuariosRegistrados.add(987654321);
+        usuariosRegistrados.add(456123789);
+
+
+        int nuevaBilletera = generarNumeroBilletera();
+
+        if (nuevaBilletera != -1) {
+            System.out.println("Número de billetera generado: " + nuevaBilletera);
+        } else {
+            System.out.println("No se pudo generar un número de billetera único.");
+        }
+    }
 }
+
+
+
