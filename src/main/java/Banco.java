@@ -7,8 +7,6 @@ public class Banco {
 
     /**
      * constructor de la clase
-     * @param usuarios
-     * @param billeteras
      */
     public Banco(String nombre) {
         this.nombre=nombre;

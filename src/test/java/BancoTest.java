@@ -22,6 +22,7 @@ public class BancoTest {
         banco.setUsuarios(usuarios);
     }
 
+
     @Test
     public void agregarUsuarioTest() throws Exception {
         Banco banco = new Banco("davivienda");
@@ -82,14 +83,14 @@ public class BancoTest {
         } );
 
         // Se obtiene el estudiante actualizado
-        Usuario usuarioActualizado = banco.obtenerUsuario("123");
+        Usuario usuarioActualizado = banco.obtenerUsuario("1234");
 
         // Se espera que el estudiante no sea nulo y que tenga los datos actualizados
         assertNotNull(usuarioActualizado);
-        assertEquals("Carlos", usuarioActualizado.getNombre());
-        assertEquals("carrera 10 #3-33", usuarioActualizado.getDireccion());
-        assertEquals("carlos@gmail.com", usuarioActualizado.getEmail());
-        assertEquals("112212", usuarioActualizado.getPassword());
+        assertEquals("Jose", usuarioActualizado.getNombre());
+        assertEquals("carrera 9 #3-33", usuarioActualizado.getDireccion());
+        assertEquals("jose@gmail.com", usuarioActualizado.getEmail());
+        assertEquals("11221122", usuarioActualizado.getPassword());
         assertTrue(usuarioActualizado.isEstado());
     }
 

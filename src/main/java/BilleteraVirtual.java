@@ -8,7 +8,7 @@ public class BilleteraVirtual {
     Usuario usuario;
     static ArrayList<String> numerosExistentes = new ArrayList<>(); // verificar numeros unicos
 
-    public BilleteraVirtual(String numero, float saldo, ArrayList<Transaccion> transacciones, Usuario usuario) {
+    public BilleteraVirtual(String numero, float saldo, Usuario usuario) {
         this.numero = numero;
         this.saldo = saldo;
         this.transacciones = new ArrayList<>();
@@ -78,24 +78,9 @@ public class BilleteraVirtual {
     }
 
     /**
-     * metodo para realizar una transacción
-     *
-     * @param billeteraDestino
-     * @throws Exception
+     * metodo para generar un numero de una billetera
+     * @return
      */
-    public void realizarTransaccion(BilleteraVirtual billeteraDestino, Transaccion transaccion) throws Exception {
-
-        if (saldo < transaccion.getMonto()) {
-            throw new Exception("fondos insuficientes");
-        }
-
-        if (billeteraDestino == null || transaccion.getMonto() == 0) {
-            throw new Exception("datos invalidos");
-        }
-
-        this.saldo -= (transaccion.getMonto() + 200); // el monto a enviar más 200 que es el costo de la transferencia
-        billeteraDestino.saldo += transaccion.getMonto();
-    }
     private String generarNumeroUnico() {
         String nuevoNumero = "nuevoNumero";
         boolean unico = false;
@@ -114,6 +99,12 @@ public class BilleteraVirtual {
         numerosExistentes.add(nuevoNumero);
         return nuevoNumero;
     }
+
+    /**
+     * metodo para recargar el saldo de la billetera
+     * @param monto
+     * @return
+     */
     public boolean recargarSaldo(float monto) {
         boolean esPositivo = false;
 
@@ -130,6 +121,14 @@ public class BilleteraVirtual {
         }
         return false;
     }
+
+    /**
+     * metodo para transferir de una billetera a otra
+     * @param destino
+     * @param monto
+     * @param categoria
+     * @return
+     */
     public boolean transferir(BilleteraVirtual destino, float monto, Categoria categoria) {
         boolean tieneSaldoSuficiente = false;
 
@@ -140,7 +139,7 @@ public class BilleteraVirtual {
         }
 
         if (tieneSaldoSuficiente) {
-            saldo -= monto;
+            saldo -= (monto + 200); //se descuenta el monto transferido más 200 del costo de la transaccion
             destino.saldo += monto;
 
             Transaccion envio = new Transaccion("ENVIO", monto, LocalDateTime.now(), categoria, this, destino);
@@ -152,6 +151,13 @@ public class BilleteraVirtual {
         }
         return false;
     }
+
+    /**
+     * metodo para consultar las transacciones por periodo
+     * @param inicio
+     * @param fin
+     * @return
+     */
     public ArrayList<Transaccion> consultarTransaccionesPorPeriodo(LocalDateTime inicio, LocalDateTime fin) {
         ArrayList<Transaccion> resultado = new ArrayList<>();
         for (Transaccion transaccion : transacciones) {
@@ -162,6 +168,11 @@ public class BilleteraVirtual {
         return resultado;
     }
 
+    /**
+     * metodo para obtener el porcentaje de gastos e ingresos
+     * @param anio
+     * @param mes
+     */
     public void obtenerPorcentajeGastosIngresos(int anio, int mes) {
         float ingresos = 0;
         float gastos = 0;
