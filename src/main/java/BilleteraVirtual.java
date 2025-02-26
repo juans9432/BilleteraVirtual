@@ -119,15 +119,4 @@ public class BilleteraVirtual {
         return false;
     }
 
-    public float consultarSaldo() {
-        return saldo;
-    }
-
-    public ArrayList<Transaccion> consultarTransacciones() {
-        return transacciones;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
 }
