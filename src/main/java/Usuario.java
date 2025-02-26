@@ -60,7 +60,7 @@ public class Usuario {
         this.password = password;
     }
 
-    public boolean Estado() {
+    public boolean isEstado() {
         return estado;
     }
 

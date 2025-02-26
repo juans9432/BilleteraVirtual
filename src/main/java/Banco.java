@@ -40,7 +40,7 @@ public class Banco {
      */
     public void agregar(Usuario usuario) throws Exception{
 
-        Usuario usuarioBuscado = obtener(usuario.getId());
+        Usuario usuarioBuscado = obtenerUsuario(usuario.getId());
 
         // Si el estudiante ya existe, lanzar una excepción
         if(usuarioBuscado!=null){
@@ -55,7 +55,7 @@ public class Banco {
      * @param id
      * @return
      */
-    public Usuario obtener(String id){
+    public Usuario obtenerUsuario(String id){
 
         // Buscar el usuario con el ID dado
         return usuarios
@@ -71,8 +71,8 @@ public class Banco {
      * @param id
      * @throws Exception
      */
-    public void eliminar(String id) throws Exception{
-        Usuario usuarioBuscado = obtener(id);
+    public void eliminarUsuario(String id) throws Exception{
+        Usuario usuarioBuscado = obtenerUsuario(id);
 
         // Si el usuario no existe, lanzar una excepción
         if(usuarioBuscado==null){
@@ -88,7 +88,7 @@ public class Banco {
      * @throws Exception
      */
     public void actualizar(Usuario nuevoUsuario) throws Exception{
-        Usuario usuarioBuscado = obtener(nuevoUsuario.getId());
+        Usuario usuarioBuscado = obtenerUsuario(nuevoUsuario.getId());
 
         // Si el usuario no existe, lanzar una excepción
         if(usuarioBuscado!=null){
@@ -97,11 +97,13 @@ public class Banco {
             usuarioBuscado.setDireccion(nuevoUsuario.getDireccion());
             usuarioBuscado.setEmail(nuevoUsuario.getEmail());
             usuarioBuscado.setPassword(nuevoUsuario.getPassword());
-            usuarioBuscado.setEstado(nuevoUsuario.Estado());
+            usuarioBuscado.setEstado(nuevoUsuario.isEstado());
 
         }else{
             throw new Exception("No existe un usuario con el ID dado");
         }
     }
+
+
 
 }
