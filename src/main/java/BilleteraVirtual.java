@@ -118,5 +118,36 @@ public class BilleteraVirtual {
         }
         return false;
     }
+    public ArrayList<Transaccion> consultarTransaccionesPorPeriodo(LocalDateTime inicio, LocalDateTime fin) {
+        ArrayList<Transaccion> resultado = new ArrayList<>();
+        for (Transaccion transaccion : transacciones) {
+            if (transaccion.getFecha().isAfter(inicio) && transaccion.getFecha().isBefore(fin)) {
+                resultado.add(transaccion);
+            }
+        }
+        return resultado;
+    }
 
+    public void obtenerPorcentajeGastosIngresos(int anio, int mes) {
+        float ingresos = 0;
+        float gastos = 0;
+
+        for (Transaccion transaccion : transacciones) {
+            if (transaccion.getFecha().getYear() == anio && transaccion.getFecha().getMonthValue() == mes) {
+                if (transaccion.getOrigen() == this) {
+                    gastos += transaccion.getMonto();
+                } else if (transaccion.getDestino() == this) {
+                    ingresos += transaccion.getMonto();
+                }
+            }
+        }
+
+        float total = ingresos + gastos;
+        if (total > 0) {
+            System.out.println("Ingresos: " + (ingresos / total) * 100 + "%");
+            System.out.println("Gastos: " + (gastos / total) * 100 + "%");
+        } else {
+            System.out.println("No hay transacciones registradas en este período.");
+        }
+    }
 }
