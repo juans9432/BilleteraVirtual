@@ -25,7 +25,6 @@ public class Transaccion {
         this.origen = origen;
         this.destino = destino;
     }
-
     public String getId() {
         return id;
     }
