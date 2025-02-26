@@ -101,6 +101,29 @@ public class Banco {
         }
     }
 
+    public void agregarBilletera(BilleteraVirtual billetera) throws Exception{
+
+        BilleteraVirtual billeteraBuscada = obtenerBilletera(billetera.getNumero());
+
+        // Si la billetera ya existe, lanzar una excepción
+        if(billeteraBuscada!=null){
+            throw new Exception("Ya existe un usuario con el mismo ID");
+        }else{
+            billeteras.add(billeteraBuscada);
+        }
+    }
+
+    public BilleteraVirtual obtenerBilletera(String numero){
+
+        // Buscar la billetera con el ID dado
+        return billeteras
+                .stream()
+                .filter(e -> e.getNumero().equals(numero))
+                .findFirst()
+                .orElse(null);
+
+    }
+
 
 
 }

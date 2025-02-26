@@ -94,6 +94,22 @@ public class BancoTest {
         assertTrue(usuarioActualizado.isEstado());
     }
 
+    @Test
+    public void agregarBilleteraTest() throws Exception {
+        Banco banco = new Banco("davivienda");
+
+        Usuario usuario1 = new Usuario("1115183021", "juan", "calle 3 #4-05",
+                "juan@gmail.com", "12345", true);
+
+        BilleteraVirtual billetera = new BilleteraVirtual("12345", 5000, usuario1);
+        banco.agregar(billetera);
+
+        ArrayList<BilleteraVirtual> billeteras = banco.getBilleteras();
+
+        assertEquals(1, billeteras.size());
+        assertEquals(usuario1, billeteras.get(0));
+    }
+
 
 
 

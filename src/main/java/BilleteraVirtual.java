@@ -66,7 +66,7 @@ public class BilleteraVirtual {
      * metodo para consultar las transacciones
      * @return
      */
-    public ArrayList<Transaccion> consultaTransacción(Usuario usuario) throws Exception {
+    public ArrayList<Transaccion> consultaTransaccion(Usuario usuario) throws Exception {
         if (usuario == null) {
             throw new Exception("el usuario no puede ser nulo");
         }

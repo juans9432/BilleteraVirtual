@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BilleteraVirtualTest {
 
@@ -96,6 +97,24 @@ public class BilleteraVirtualTest {
         BilleteraVirtual billetera = new BilleteraVirtual("2222", 5000, usuario1 );
 
         assertEquals(5000, billetera.consultarSaldo(usuario1));
+    }
+
+    @Test
+    public void consultarTransaccionesTest() throws Exception {
+
+        Usuario usuario1 = new Usuario("5678", "pedro", "calle 5 #4-23", "pedro@gmail.com", "234323", true);
+        Usuario usuario2 = new Usuario("4321", "Andres", "calle 7 #4-23", "andres@gmail.com", "09876", true);
+
+        BilleteraVirtual billetera1 = new BilleteraVirtual("2222", 5000, usuario1 );
+        BilleteraVirtual billetera2 = new BilleteraVirtual("3333", 6000, usuario2 );
+
+        billetera1.transferir(billetera2, 300, Categoria.VIAJES);
+        billetera1.transferir(billetera2, 700, Categoria.GASOLINA);
+
+
+        List<Transaccion> transacciones = billetera1.consultaTransaccion(usuario1);
+
+        assertEquals(2, transacciones.size());
     }
 
 
