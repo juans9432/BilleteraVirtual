@@ -10,8 +10,7 @@ public class Banco {
      * @param usuarios
      * @param billeteras
      */
-    public Banco(String nombre, ArrayList<Usuario> usuarios,
-                 ArrayList<BilleteraVirtual> billeteras) {
+    public Banco(String nombre) {
         this.nombre=nombre;
         this.usuarios = new ArrayList<>();
         this.billeteras = new ArrayList<>();

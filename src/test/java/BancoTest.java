@@ -1,5 +1,7 @@
-import org.junit.Test;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,13 +18,13 @@ public class BancoTest {
         usuarios.add(new Usuario("9012", "Mario", "calle 1 #1-23", "mario@gmail.com", "123456", true));
 
         // Se crea una instancia de GestionEstudiantes con la lista de estudiantes
-        banco = new Banco("davivienda", new ArrayList<>(), new ArrayList<>());
+        banco = new Banco("davivienda");
         banco.setUsuarios(usuarios);
     }
 
     @Test
     public void agregarUsuarioTest() throws Exception {
-        Banco banco = new Banco("davivienda", new ArrayList<>(), new ArrayList<>());
+        Banco banco = new Banco("davivienda");
         Usuario usuario1 = new Usuario("1115183021", "juan", "calle 3 #4-05",
                 "juan@gmail.com", "12345", true);
         banco.agregar(usuario1);
