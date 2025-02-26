@@ -1,19 +1,16 @@
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.UUID;
 
 public class BilleteraVirtual {
     String numero;
     float saldo;
     ArrayList<Transaccion> transacciones;
     Usuario usuario;
+    static ArrayList<String> numerosExistentes = new ArrayList<>(); // verificar numeros unicos
 
     public BilleteraVirtual(String numero, float saldo, ArrayList<Transaccion> transacciones, Usuario usuario) {
         this.numero = numero;
         this.saldo = saldo;
-        this.transacciones = transacciones;
+        this.transacciones = new ArrayList<>();
         this.usuario = usuario;
     }
 
@@ -51,7 +48,6 @@ public class BilleteraVirtual {
 
     /**
      * metodo para consultar el saldo
-     *
      * @return
      */
     public float consultarSaldo(Usuario usuario) throws Exception {
@@ -67,10 +63,7 @@ public class BilleteraVirtual {
 
     /**
      * metodo para consultar las transacciones
-     *
-     * @param usuario
      * @return
-     * @throws Exception
      */
     public ArrayList<Transaccion> consultaTransacción(Usuario usuario) throws Exception {
         if (usuario == null) {
@@ -101,5 +94,93 @@ public class BilleteraVirtual {
 
         this.saldo -= (transaccion.getMonto() + 200); // el monto a enviar más 200 que es el costo de la transferencia
         billeteraDestino.saldo += transaccion.getMonto();
+    }
+    private String generarNumeroUnico() {
+        String nuevoNumero = "nuevoNumero";
+        boolean unico = false;
+
+        for (int i = 0; !unico; i++) {
+            nuevoNumero = String.valueOf(1000000000L + (long) (Math.random() * 9000000000L)); // Número de 10 dígitos
+            unico = true;
+
+            for (String numeroExistente : numerosExistentes) {
+                if (numeroExistente.equals(nuevoNumero)) {
+                    unico = false;
+                    break;
+                }
+            }
+        }
+        numerosExistentes.add(nuevoNumero);
+        return nuevoNumero;
+    }
+    public boolean recargarSaldo(float monto) {
+        boolean esPositivo = false;
+
+        for (int i = 0; i < 1; i++) {
+            if (monto > 0) {
+                esPositivo = true;
+            }
+        }
+
+        if (esPositivo) {
+            saldo += monto;
+            transacciones.add(new Transaccion("RECARGA", monto, LocalDateTime.now(), Categoria.VIAJES, null, this));
+            return true;
+        }
+        return false;
+    }
+    public boolean transferir(BilleteraVirtual destino, float monto, Categoria categoria) {
+        boolean tieneSaldoSuficiente = false;
+
+        for (int i = 0; i < 1; i++) {
+            if (monto > 0 && saldo >= monto) {
+                tieneSaldoSuficiente = true;
+            }
+        }
+
+        if (tieneSaldoSuficiente) {
+            saldo -= monto;
+            destino.saldo += monto;
+
+            Transaccion envio = new Transaccion("ENVIO", monto, LocalDateTime.now(), categoria, this, destino);
+            Transaccion recepcion = new Transaccion("RECEPCION", monto, LocalDateTime.now(), categoria, destino, this);
+
+            transacciones.add(envio);
+            destino.transacciones.add(recepcion);
+            return true;
+        }
+        return false;
+    }
+    public ArrayList<Transaccion> consultarTransaccionesPorPeriodo(LocalDateTime inicio, LocalDateTime fin) {
+        ArrayList<Transaccion> resultado = new ArrayList<>();
+        for (Transaccion transaccion : transacciones) {
+            if (transaccion.getFecha().isAfter(inicio) && transaccion.getFecha().isBefore(fin)) {
+                resultado.add(transaccion);
+            }
+        }
+        return resultado;
+    }
+
+    public void obtenerPorcentajeGastosIngresos(int anio, int mes) {
+        float ingresos = 0;
+        float gastos = 0;
+
+        for (Transaccion transaccion : transacciones) {
+            if (transaccion.getFecha().getYear() == anio && transaccion.getFecha().getMonthValue() == mes) {
+                if (transaccion.getOrigen() == this) {
+                    gastos += transaccion.getMonto();
+                } else if (transaccion.getDestino() == this) {
+                    ingresos += transaccion.getMonto();
+                }
+            }
+        }
+
+        float total = ingresos + gastos;
+        if (total > 0) {
+            System.out.println("Ingresos: " + (ingresos / total) * 100 + "%");
+            System.out.println("Gastos: " + (gastos / total) * 100 + "%");
+        } else {
+            System.out.println("No hay transacciones registradas en este período.");
+        }
     }
 }

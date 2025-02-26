@@ -20,6 +20,8 @@ public class Usuario {
         this.estado = estado;
     }
 
+
+
     public String getId() {
         return id;
     }
