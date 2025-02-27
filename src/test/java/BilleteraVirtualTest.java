@@ -13,6 +13,9 @@ import java.util.List;
 
 public class BilleteraVirtualTest {
 
+    /**
+     * test para el metodo que genera un numero aleatorio para la billetera
+     */
     @Test
     public void generarNumeroUnicoTest() {
 
@@ -24,6 +27,9 @@ public class BilleteraVirtualTest {
         assertNotEquals(billetera1.getNumero(), billetera2.getNumero()); // Verifica que sean distintos
     }
 
+    /**
+     * test para el metodo que recarga saldo
+     */
     @Test
     public void recargarSaldoTest() {
         BilleteraVirtual billetera = new BilleteraVirtual("1233291233", 10000, new Usuario("123465566",  "juan", "calle23", "juan@email.com", "12345", true));
@@ -33,6 +39,10 @@ public class BilleteraVirtualTest {
         //assertEquals(1000, billetera.consultarSaldo());
     }
 
+    /**
+     * test para el metodo de transferir
+     * @throws Exception
+     */
     @Test
     public void transferirTest() throws Exception {
 
@@ -50,6 +60,9 @@ public class BilleteraVirtualTest {
         assertEquals(400, destino.consultarSaldo(usuario2));
     }
 
+    /**
+     * test para el metodo que consulta transacciones por periodo
+     */
     @Test
     public void consultarTransaccionesPorPeriodoTest() {
 
@@ -70,6 +83,9 @@ public class BilleteraVirtualTest {
     }
 
 
+    /**
+     * test para el metodo que obtiene porcentaje de gastos e ingresos
+     */
     @Test
     public void obtenerPorcentajeGastosIngresosTest() {
 
@@ -89,6 +105,10 @@ public class BilleteraVirtualTest {
         // No hay assert porque el método imprime los resultados en la consola.
     }
 
+    /**
+     * test para el metodo de consultar saldo
+     * @throws Exception
+     */
     @Test
     public void consultarSaldoTest() throws Exception {
 
@@ -99,6 +119,10 @@ public class BilleteraVirtualTest {
         assertEquals(5000, billetera.consultarSaldo(usuario1));
     }
 
+    /**
+     * test para el metodo que consulta transacciones
+     * @throws Exception
+     */
     @Test
     public void consultarTransaccionesTest() throws Exception {
 

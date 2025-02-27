@@ -8,6 +8,12 @@ public class BilleteraVirtual {
     Usuario usuario;
     static ArrayList<String> numerosExistentes = new ArrayList<>(); // verificar numeros unicos
 
+    /**
+     * constructor de la clase
+     * @param numero
+     * @param saldo
+     * @param usuario
+     */
     public BilleteraVirtual(String numero, float saldo, Usuario usuario) {
         this.numero = numero;
         this.saldo = saldo;
@@ -131,6 +137,7 @@ public class BilleteraVirtual {
      */
     public boolean transferir(BilleteraVirtual destino, float monto, Categoria categoria) {
         boolean tieneSaldoSuficiente = false;
+        int costoTransaccion = 200;
 
         for (int i = 0; i < 1; i++) {
             if (monto > 0 && saldo >= monto) {
@@ -139,11 +146,11 @@ public class BilleteraVirtual {
         }
 
         if (tieneSaldoSuficiente) {
-            saldo -= (monto + 200); //se descuenta el monto transferido más 200 del costo de la transaccion
+            saldo -= (monto + costoTransaccion); //se descuenta el monto transferido más 200 del costo de la transaccion
             destino.saldo += monto;
 
-            Transaccion envio = new Transaccion("ENVIO", monto, LocalDateTime.now(), categoria, this, destino);
-            Transaccion recepcion = new Transaccion("RECEPCION", monto, LocalDateTime.now(), categoria, destino, this);
+            Transaccion envio = new Transaccion("5252", monto, LocalDateTime.now(), categoria, this, destino);
+            Transaccion recepcion = new Transaccion("2323", monto, LocalDateTime.now(), categoria, destino, this);
 
             transacciones.add(envio);
             destino.transacciones.add(recepcion);

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BancoTest {
 
     private Banco banco;
+    private BilleteraVirtual billetera;
 
     @BeforeEach
     public void crearDatosPrueba() {
@@ -22,7 +23,10 @@ public class BancoTest {
         banco.setUsuarios(usuarios);
     }
 
-
+    /**
+     * test para el metodo que agrega un usuario
+     * @throws Exception
+     */
     @Test
     public void agregarUsuarioTest() throws Exception {
         Banco banco = new Banco("davivienda");
@@ -36,6 +40,9 @@ public class BancoTest {
         assertEquals(usuario1, usuarios.get(0));
     }
 
+    /**
+     * test para el metodo que obtiene un usuario
+     */
     @Test
     public void obtenerTest(){
         // Se obtiene un usuario con ID 1234
@@ -53,6 +60,9 @@ public class BancoTest {
         assertTrue(usuario.isEstado());
     }
 
+    /**
+     * test para el metodo que elimina un usuario
+     */
     @Test
     public void eliminarTest(){
         // Se espera que no se lance ninguna excepción al eliminar el usuario con ID 1234
@@ -65,6 +75,9 @@ public class BancoTest {
         assertNull(usuario);
     }
 
+    /**
+     * test para el metodo que actualiza un usuario
+     */
     @Test
     public void actualizarTest(){
         // Se crea un nuevo estudiante con los datos actualizados
@@ -94,6 +107,10 @@ public class BancoTest {
         assertTrue(usuarioActualizado.isEstado());
     }
 
+    /**
+     * test para el metodo que agrega una billetera
+     * @throws Exception
+     */
     @Test
     public void agregarBilleteraTest() throws Exception {
         Banco banco = new Banco("davivienda");
@@ -109,6 +126,28 @@ public class BancoTest {
 
         assertEquals(1, billeteras.size());
         assertEquals(billetera, billeteras.get(0));
+    }
+
+    /**
+     * test para el metodo que obtiene una billetera
+     */
+    @Test
+    public void obtenerBilleteraTest() {
+
+        Banco banco = new Banco("davivienda");
+
+        Usuario usuario1 = new Usuario("3333", "maria", "calle 5# 4-38", "maria@gmail.com", "09876", true);
+
+        BilleteraVirtual billetera = new BilleteraVirtual("1234", 5000, usuario1);
+        // Se obtiene un usuario con ID 1234
+        banco.obtenerBilletera("1234");
+
+
+        // Se espera que el usuario no sea nulo y que tenga los datos correctos
+        assertNotNull(billetera);
+        assertEquals("1234", billetera.getNumero());
+        assertEquals(5000, billetera.getSaldo());
+        assertEquals(usuario1, billetera.getUsuario());
     }
 
 

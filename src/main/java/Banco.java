@@ -80,7 +80,7 @@ public class Banco {
     }
 
     /**
-     *
+     *metodo que actualiza un usuario
      * @param nuevoUsuario
      * @throws Exception
      */
@@ -101,6 +101,11 @@ public class Banco {
         }
     }
 
+    /**
+     * metodo que agrega una billetera
+     * @param billetera
+     * @throws Exception
+     */
     public void agregarBilletera(BilleteraVirtual billetera) throws Exception{
 
         BilleteraVirtual billeteraBuscada = obtenerBilletera(billetera.getNumero());
@@ -113,6 +118,11 @@ public class Banco {
         }
     }
 
+    /**
+     * metodo que obtiene la billetera
+     * @param numero
+     * @return
+     */
     public BilleteraVirtual obtenerBilletera(String numero){
 
         // Buscar la billetera con el ID dado
