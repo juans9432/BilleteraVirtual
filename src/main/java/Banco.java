@@ -107,9 +107,9 @@ public class Banco {
 
         // Si la billetera ya existe, lanzar una excepción
         if(billeteraBuscada!=null){
-            throw new Exception("Ya existe un usuario con el mismo ID");
+            throw new Exception("Ya existe una billetera con el mismo numero");
         }else{
-            billeteras.add(billeteraBuscada);
+            billeteras.add(billetera);
         }
     }
 

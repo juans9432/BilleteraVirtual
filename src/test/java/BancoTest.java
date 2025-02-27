@@ -102,13 +102,15 @@ public class BancoTest {
                 "juan@gmail.com", "12345", true);
 
         BilleteraVirtual billetera = new BilleteraVirtual("12345", 5000, usuario1);
-        banco.agregar(billetera);
+
+        banco.agregarBilletera(billetera);
 
         ArrayList<BilleteraVirtual> billeteras = banco.getBilleteras();
 
         assertEquals(1, billeteras.size());
-        assertEquals(usuario1, billeteras.get(0));
+        assertEquals(billetera, billeteras.get(0));
     }
+
 
 
 
